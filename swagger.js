@@ -1,11 +1,11 @@
-const m2s = require('mongoose-to-swagger')
-const User = require('./models/user.model')
-const Product = require('./models/product.model')
-
-exports.options = {
-    "components": {
-        "schemas": {
-            User: m2s(User),
+ const m2s = require('mongoose-to-swagger')
+ const User = require('./models/user.model')
+ const Product = require('./models/product.model')
+ 
+ exports.options = {
+    "components" : {
+        "schemas" : {
+            User: m2s(User),                    //μετατρεπει σε json το μοντελο user
             Product: m2s(Product)
         }
     },
