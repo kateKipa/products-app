@@ -5,7 +5,7 @@
  exports.options = {
     "components" : {
         "schemas" : {
-            User: m2s(User),                    //μετατρεπει σε json το μοντελο user
+            User: m2s(User),
             Product: m2s(Product)
         }
     },

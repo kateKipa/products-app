@@ -1,4 +1,5 @@
 const User = require('../models/user.model.js')
+const logger = require('../logger/logger.js')
 
 
 exports.findAll = async(req, res) => {
@@ -6,8 +7,11 @@ exports.findAll = async(req, res) => {
     try {
         const result = await User.find()
         res.status(200).json({data: result})
+        logger.debug('Success in reading all users')
+        logger.info("Success 2 in reading all users")
     }catch (err) {
         console.log(`Problem in reading users, ${err}`)
+        logger.error("problem in reading all users", err)
     }
 }
 
@@ -44,7 +48,7 @@ exports.create = async(req, res) => {
         console.log("User saved")
     } catch (err) {
         res.status(400).json({data : err})
-        console.log('Problem in saving user')
+        console.log('Problem in saving user', err)
     }
 }
 
