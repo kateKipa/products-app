@@ -6,16 +6,14 @@ $(document).ready(function(){
     dataType:'JSON'
   })
   .done(function(response){
-    // console.log(">>", response);
+
     let data = response.data;
-    //let status = response.status
-    //console.log(data)
-    
-    if (data.length > 0) { 
+    // let status = response.status
+    if (data.length>0) { 
         createTbody(data);
     } else {
         alert(false,'Πρόβλημα στην αναζήτηση των χρηστών ('+ data.message + ')');
-        // console.log(data);
+
     }
   });
 
@@ -28,6 +26,10 @@ $(document).ready(function(){
     let email = $("#email").val();
     let area =  $("#area").val();
     let road =  $("#road").val();
+    let address = {
+      'area' : area,
+      'road' : road
+    }
 
     const item = {
       'username': username,
@@ -35,11 +37,11 @@ $(document).ready(function(){
       'name': name,
       'surname': surname,
       'email': email,
-      'area': area,
-      'road': road
+      'address' : address
     }
 
     console.log($('.btnSubmit').val(), item);
+
     $.ajax({
       url: "http://localhost:3000/api/users",
       type: "post",
@@ -48,34 +50,50 @@ $(document).ready(function(){
       // encode: true,
     })
     .done( function(response) {
-      // console.log(">>", response);
-      
-      let data = response.data;
-      let status = response.status
-  
-      if (data) { 
-          console.log(true,'Επιτυχής εισαγωγή του χρήστη');
+
+      // let data = response.data;
+      // let status = response.status
+
+          console.log('Επιτυχής εισαγωγή του χρήστη');
           alert(true,'Επιτυχής εισαγωγή του χρήστη');
           $('#frmUser')[0].reset();
           window.location.replace("http://localhost:3000/user/find.html")
-      } else {
-          console.log(false,'Πρόβλημα στην εισαγωγή του χρήστη ('+ data.message + ')');
-          alert(false,'Πρόβλημα στην εισαγωγή του χρήστη ('+ data.message + ')');
-          $('#frmUser')[0].reset();
-          // console.log(data.message);
-      }
-    });
+    })
 
+    .fail(function(response) {
+
+      console.log('Ανεπιτυχής εισαγωγή του χρήστη:', response.responseJSON.data.message);
+      alert(true,'Ανεπιτυχής εισαγωγή του χρήστη :' + response.responseJSON.data.message);
+    })
     return false
   });
 
+  $('#tbody').off('click', '.btnDelete').on('click', '.btnDelete', function () {
+    let clickedValue = $(this).val()
+    let username = clickedValue
+    $.ajax({
+      url: "http://localhost:3000/api/users/"+ username,
+      type: "delete",
+      dataType: "JSON",
+      // encode: true,
+      success: function(response) {
+
+        console.log(response);
+        window.location.replace("http://localhost:3000/user/find.html")
+    },
+    error: function(xhr, status, error) {
+
+        console.error(xhr.responseText);
+    }
+    })
+  })
 });
 
 function createTbody(data){
 
   $("#userTable > tbody").empty();
 
-  // console.log("CreateTBody", data);
+  console.log("CreateTBody", data);
   const len = data.length;
   for (let i=0; i<len; i++){
     let username = data[i].username;
@@ -87,8 +105,8 @@ function createTbody(data){
     for (let x=0; x<data[i].phone.length; x++ ){
       phone = phone + data[i].phone[x].type + ":" + data[i].phone[x].number + "<br>"
     }
-    
-    // console.log(username, name);
+
+
 
     let tr_str = "<tr>" +
       "<td>" + username + "</td>" +

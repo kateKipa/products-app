@@ -32,8 +32,8 @@
               Χρήστες
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="./create.html">Δημιουργία</a></li>
-              <li><a class="dropdown-item" href="./find.html">Εμφάνιση</a></li>
+              <li><a class="dropdown-item" href="../user/create.html">Δημιουργία</a></li>
+              <li><a class="dropdown-item" href="../user/find.html">Εμφάνιση</a></li>
             </ul>
           </li>
 
@@ -42,8 +42,8 @@
               Προϊόντα
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="../product/create.html">Δημιουργία</a></li>
-              <li><a class="dropdown-item" href="../product/find.html">Εμφάνιση</a></li>
+              <li><a class="dropdown-item" href="./create.html">Δημιουργία</a></li>
+              <li><a class="dropdown-item" href="./find.html">Εμφάνιση</a></li>
             </ul>
           </li>
 
@@ -72,20 +72,37 @@
   
   <div class="container mt-5">
     <div class="row justify-content-center">
-      <table class="table table-striped table-hover caption-top w-auto" id="userTable">
-          <caption>List of users</caption>
-          <thead>
-              <tr>
-                <th>Username</th>
-                <th>Όνομα</th>
-                <th>Επίθετο</th>
-                <th>Email</th>
-                <th>Διεύθυνση</th>
-                <th>Τηλέφωνο</th>
-              </tr>
-          </thead>
-          <tbody id="tbody"></tbody>
-      </table>
+      <h2>Χρήστες Εφαρμογής</h2>
+        
+        <div class="alert" role="alert"></div>
+
+        <form id="frmUser">
+          <div class="mb-3">
+            <label for="product" class="form-label">Name of Product</label>
+            <input type="text" class="form-control" name="product" id="product" aria-describedby="productHelp">
+            <div id="productHelp" class="form-text">Πληκτρολογήστε το όνομα του νέου προϊόντος.</div>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" name="description" id="description">
+          </div>
+          <div class="mb-3">
+            <label for="cost" class="form-label">Cost</label>
+            <input type="number" class="form-control" name="cost" id="cost">
+          </div>
+          <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" class="form-control" name="quantity" id="quantity">
+          </div>
+        </form>
+        
+        <div class="row">
+          <div class="col text-center">
+            <button class="btnSubmit btn btn-primary text-center" value="insert">Υποβολή</button>
+            <button class="btnReset btn btn-primary text-center">Επαναφορά</button>
+          </div>
+        </div>    
+    </div>   
     </div>
   </div>
 
@@ -101,7 +118,6 @@
     crossorigin="anonymous">
   </script> 
 
-  <script src="../assets/js/user.scripts.js"></script>
-
+  <script src="../assets/js/product.scripts.js"></script>
 </body>
 </html>

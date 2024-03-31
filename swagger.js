@@ -1,10 +1,10 @@
- const m2s = require('mongoose-to-swagger')
- const User = require('./models/user.model')
- const Product = require('./models/product.model')
- 
- exports.options = {
-    "components" : {
-        "schemas" : {
+const m2s = require('mongoose-to-swagger')
+const User = require('./models/user.model')
+const Product = require('./models/product.model')
+
+exports.options = {
+    "components": {
+        "schemas": {
             User: m2s(User),
             Product: m2s(Product)
         }
@@ -104,8 +104,11 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "New user inserted"
+                    "201": {
+                        "description": "New user inserted",
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
                     }
                 }
             }
@@ -181,27 +184,159 @@
                 "responses": {
                     "200": {
                         "description": "Update user",
-                        "schema" : {
+                        "schema": {
                             "$ref": "#/components/schemas/User"
                         }
                     }
                 }
             },
-            "delete" : {
-                "tags" : ["Users"],
-                "description" : "Delete a user",
-                "parameters" : [
+            "delete": {
+                "tags": ["Users"],
+                "description": "Delete a user",
+                "parameters": [
                     {
-                        "name" : "username",
-                        "in" : "path",
-                        "description" : "Username of user to delete",
-                        "type" : "string",
-                        "required" : true
+                        "name": "username",
+                        "in": "path",
+                        "description": "Username of user to delete",
+                        "type": "string",
+                        "required": true
                     }
                 ],
-                "responses" : {
-                    "200" : {
-                        "description" : "The user who was deleted"
+                "responses": {
+                    "200": {
+                        "description": "The user who was deleted",
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": ["Products"],
+                "description": "Return all products",
+                "responses": {
+                    "200": {
+                        "description": "A list of all products",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Products"],
+                "description": "Create a new product",
+                "requestBody": {
+                    "description": "Product schema to insert",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "product": { "type": "string" },
+                                    "cost": { "type": "number" },
+                                    "description": { "type": "string" },
+                                    "quantity": { "type": "number" }
+                                },
+                                "required": ["product", "cost", "description", "quantity"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "New product inserted",
+                        "schema": {
+                            "$ref": "#/components/schemas/Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "tags": ["Products"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id of product that we want to find",
+                        "type": "string"
+                    }
+                ],
+                "description": "Find product with specific id",
+                "responses": {
+                    "200": {
+                        "description": "Product to find",
+                        "schema": {
+                            "$ref": "#/components/schemas/Product"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": ["Products"],
+                "description": "Update a product",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id of product to update",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Product to update",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "product": { "type": "string" },
+                                    "cost": { "type": "number" },
+                                    "description": { "type": "string" },
+                                    "quantity": { "type": "number" }
+                                },
+                                "required": []
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The update product",
+                        "schema": {
+                            "$ref": "#/components/schemas/Product"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Products"],
+                "description": "Delete a product",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of product to delete",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The product who was deleted"
                     }
                 }
             }

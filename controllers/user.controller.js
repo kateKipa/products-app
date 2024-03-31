@@ -37,17 +37,17 @@ exports.create = async(req, res) => {
         name: req.body.name,
         surname: req.body.surname,
         email: req.body.email,
-        address: req.body.addrress,
+        address: req.body.address,
         phone: req.body.phone,
         products: req.body.products
     })      
 
     try {
         const result = await newUser.save()
-        res.status(200).json({data : result})
+        res.status(201).json({data : result})
         console.log("User saved")
     } catch (err) {
-        res.status(400).json({data : err})
+        res.status(400).json({data: err})
         console.log('Problem in saving user', err)
     }
 }

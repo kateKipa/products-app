@@ -1,5 +1,4 @@
 const User = require('../models/user.model.js')
-//require: It's the mechanism for actually importing and using the model in other files
 
 exports.findAll = async(req, res) => {
     console.log("Find all user's products")

@@ -50,11 +50,11 @@ let userSchema = new Schema({
     products: { type: [productSchema], null:true}
 }, {
     collection: 'users',
-    timestamps: true        //date-hour of create & update
+    timestamps: true                                        //date-hour of create & update
 })
 
 userSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('User', userSchema)
-//module.exports makes this model available for use in other parts of your application.
+
 

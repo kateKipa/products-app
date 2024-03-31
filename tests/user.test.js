@@ -13,23 +13,23 @@ beforeEach(async () => {
         ()=> {console.log('Connection to MongoDB established')},
         err => { console.log('Failed to connect to MongoDB', err)}
     )
-})          //πριν απο καθε τεστ
+})         
 
 afterEach(async ()=> {
     await mongoose.connection.close()
-})          //μετα απο καθε τεστ - κλεισε τη βαση
+})        
 
 describe("Request GET / api /users", () => {
-    it("Returns all users", async() => {                         //test(("Returns all users", async())  test = it
+    it("Returns all users", async() => {                         //  test = it
         const res = await request(app).get('/api/users')
         expect(res.statusCode).toBe(200)
         expect(res.body.data.length).toBeGreaterThan(0)
-    }, 2000)   //περιμενει 2'' μεχρι να παρει το request
+    }, 2000)  
 })
 
 // describe("Request GET /api/users/:username", () => {
 //     it('Returns a user', async () => {
-//         const res = await request(app).get('/api/users/user2')           //βαζω χρηστη με το χέρι
+//         const res = await request(app).get('/api/users/user2')           
 //         expect(res.statusCode).toBe(200)
 //         expect(res.body.data.username).toBe('user2')
 //         expect(res.body.data.email).toBe('user2@aueb.gr')
@@ -74,7 +74,7 @@ describe('Request POST api/users/', () => {
             email : "test1@aueb.gr"
         })
         expect(res.statusCode).toBe(400)
-        expect(res.body.data).toBeTruthy()      //να περιεχει κατι - το μηνυμα του λαθους
+        expect(res.body.data).toBeTruthy()      
     }, 2000)
 
     it('Creates a user testing username and email', async () => {
