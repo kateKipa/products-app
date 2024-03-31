@@ -50,7 +50,7 @@ let userSchema = new Schema({
     products: { type: [productSchema], null:true}
 }, {
     collection: 'users',
-    timestamps: true                                        //date-hour of create & update
+    timestamps: true               //date-hour of create & update
 })
 
 userSchema.plugin(uniqueValidator)

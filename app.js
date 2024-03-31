@@ -7,7 +7,8 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 
 // Middleware to parse URL-encoded form data
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.js')

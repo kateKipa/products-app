@@ -50,7 +50,7 @@ $(document).ready(function(){
 
           console.log('Επιτυχής εισαγωγή του προϊόντος');
           alert(true,'Επιτυχής εισαγωγή του προϊόντος');
-          $('#frmUser')[0].reset();
+          reset()
           //window.location.replace("http://localhost:3000/user/find.html")
     })
     
@@ -80,6 +80,10 @@ $(document).ready(function(){
         console.error(xhr.responseText);
     }
     })
+  })
+  
+  $('.row').on('click', '.btnReset', function () {
+    reset()
   })
 });
 
@@ -120,4 +124,8 @@ function alert(status, message){
       $('.alert').removeClass('alert-success');
   }
   $('.alert').html(message);
+}
+
+function reset() {
+  $('#frmUser')[0].reset()
 }

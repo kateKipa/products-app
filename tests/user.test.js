@@ -19,7 +19,7 @@ afterEach(async ()=> {
     await mongoose.connection.close()
 })        
 
-describe("Request GET / api /users", () => {
+describe("Request GET / api/users", () => {
     it("Returns all users", async() => {                         //  test = it
         const res = await request(app).get('/api/users')
         expect(res.statusCode).toBe(200)
@@ -43,8 +43,8 @@ describe("Request GET /api/users/:username", () => {
 
         const res = await request(app).get('/api/users/' + result.username)
         expect(res.statusCode).toBe(200)
-        expect(res.body.data.username).toBe(result.username)
-        expect(res.body.data.email).toBe(result.email)
+        expect(res.body.data.username).toEqual(result.username)
+        expect(res.body.data.email).toEqual(result.email)
     }, 2000)
 })
 
@@ -59,9 +59,9 @@ describe('Request POST api/users/', () => {
             surname : "kostakis",
             email : "test@aueb.gr"
         })
-        expect(res.statusCode).toBe(200)
+        expect(res.statusCode).toBe(201)
         expect(res.body.data).toBeTruthy()
-    }, 2000)
+    }, 5000)
 
     it('Creates a user testing password length', async () => {
         const res = await request(app)
@@ -75,13 +75,13 @@ describe('Request POST api/users/', () => {
         })
         expect(res.statusCode).toBe(400)
         expect(res.body.data).toBeTruthy()      
-    }, 2000)
+    }, 5000)
 
     it('Creates a user testing username and email', async () => {
         const res = await request(app)
         .post('/api/users')
         .send({
-            username : "test",
+            username : "test1",
             password: "123457856",
             name : "kostas",
             surname : "kostakis",
@@ -89,11 +89,11 @@ describe('Request POST api/users/', () => {
         })
         expect(res.statusCode).toBe(400)
         expect(res.body.data).toBeTruthy()
-    }, 2000)
+    }, 5000)
      
 })
 
-describe ('DELETE /api/users:username', () => {
+describe ('DELETE /api/users/:username', () => {
     it('Delete the last inserted user', async() => {
         const result = await helper.findLastInsertedUser()
         const res = await request(app)

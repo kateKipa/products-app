@@ -56,8 +56,8 @@ $(document).ready(function(){
 
           console.log('Επιτυχής εισαγωγή του χρήστη');
           alert(true,'Επιτυχής εισαγωγή του χρήστη');
-          $('#frmUser')[0].reset();
-          window.location.replace("http://localhost:3000/user/find.html")
+          reset()
+          //window.location.replace("http://localhost:3000/user/find.html")
     })
 
     .fail(function(response) {
@@ -82,12 +82,16 @@ $(document).ready(function(){
         window.location.replace("http://localhost:3000/user/find.html")
     },
     error: function(xhr, status, error) {
-
-        console.error(xhr.responseText);
+    console.error(xhr.responseText);
     }
     })
   })
+
+  $('.row').on('click', '.btnReset', function () {
+    reset()
+  })
 });
+
 
 function createTbody(data){
 
@@ -105,8 +109,6 @@ function createTbody(data){
     for (let x=0; x<data[i].phone.length; x++ ){
       phone = phone + data[i].phone[x].type + ":" + data[i].phone[x].number + "<br>"
     }
-
-
 
     let tr_str = "<tr>" +
       "<td>" + username + "</td>" +
@@ -134,4 +136,8 @@ function alert(status, message){
       $('.alert').removeClass('alert-success');
   }
   $('.alert').html(message);
+}
+
+function reset() {
+  $('#frmUser')[0].reset()
 }
